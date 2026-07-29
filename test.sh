@@ -32,7 +32,7 @@ sleep 15
 read -p "Upload baremetal.elf to the BareMetal Cloud for execution? [y/N] " REPLY
 if [[ "$REPLY" =~ ^[Yy]$ ]]; then
 	if [ -z "${BM_API_KEY:-}" ]; then
-		echo "BM_API_KEY is not set and api.key not found"
+		echo "BM_API_KEY is not set. Make sure you `export BM_API_KEY=YOURKEY` first"
 		exit 1
 	fi
 
