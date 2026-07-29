@@ -28,3 +28,16 @@ cd ..
 ./baremetal.sh start
 sleep 15
 ./baremetal.sh output --full
+
+read -p "Upload baremetal.elf to the BareMetal Cloud for execution? [y/N] " REPLY
+if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+	if [ -z "${BM_API_KEY:-}" ]; then
+		echo "BM_API_KEY is not set and api.key not found"
+		exit 1
+	fi
+
+	NAME=$(basename "$PROG_C" .c)
+	NAME=$(printf '%s' "$NAME" | tr -c 'A-Za-z0-9-' '-')
+	IMAGE_ID=$(./bm-api.sh images upload "$PROG_APP" "BareMetal-Firecracker/sys/baremetal.elf" | awk -F': ' '/^id:/{print $2}')
+	INSTANCE_ID=$(./bm-api.sh instances create "$NAME" 1 16 "$IMAGE_ID" | awk -F': ' '/^id:/{print $2}')
+fi
