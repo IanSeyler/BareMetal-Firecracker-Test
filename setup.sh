@@ -4,7 +4,7 @@ set -e
 BOLD="\033[1m"
 NORMAL="\033[0m"
 
-echo -e "${BOLD}BareMetal-Firecracker-Test${NORMAL}"
+echo -e "${BOLD}BareMetal-Firecracker-Test${NORMAL}\n"
 
 echo -e "Running clean"
 ./clean.sh
@@ -39,3 +39,5 @@ if [ ! -f "$DISK" ]; then
 #	echo "Creating $DISKSIZE ext2 disk image"
 	mkfs.ext2 -q -F "$DISK" "$DISKSIZE"
 fi
+
+echo -e "$\nComplete! Run ${BOLD}./test.sh YOURPROGRAM.c${NORMAL} to build and run your program."
