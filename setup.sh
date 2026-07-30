@@ -12,7 +12,7 @@ for cmd in git mkfs.ext2 curl unzip tar gcc nasm make patch jq; do
 	fi
 done
 
-echo -e "This is ${BOLD}Pulling repositories${NORMAL}"
+echo -e "${BOLD}Pulling repositories${NORMAL}"
 git clone https://github.com/ReturnInfinity/BareMetal-AppPort
 git clone https://github.com/ReturnInfinity/BareMetal-Firecracker
 mkdir BareMetal-AppPort/build/
