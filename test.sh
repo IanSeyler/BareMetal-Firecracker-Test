@@ -29,7 +29,11 @@ cd ..
 sleep 15
 ./baremetal.sh output --full
 
-read -p "Upload baremetal.elf to the BareMetal Cloud for execution? [y/N] " REPLY
+if [ -f "./bm-api.sh" ]; then
+	read -p "Upload baremetal.elf to the BareMetal Cloud for execution? [y/N] " REPLY
+else
+	REPLY="N"
+fi
 if [[ "$REPLY" =~ ^[Yy]$ ]]; then
 	if [ -z "${BM_API_KEY:-}" ]; then
 		echo "BM_API_KEY is not set. Make sure you `export BM_API_KEY=YOURKEY` first"
