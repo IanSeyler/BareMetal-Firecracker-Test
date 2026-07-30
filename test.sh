@@ -31,7 +31,7 @@ if ip link show tap0 > /dev/null 2>&1; then
 	sleep 15
 	./baremetal.sh output --full
 else
-	echo "Skipping BareMetal VM run: tap device 'tap0' not found. Create it before running the VM. Check scripts dir."
+	echo "Skipping local BareMetal VM test run as tap device 'tap0' not found. Run 'BareMetal-Firecracker/scripts/mkbr0.sh' to create it if local tests are needed."
 fi
 
 if [ -f "./bm-api.sh" ]; then
