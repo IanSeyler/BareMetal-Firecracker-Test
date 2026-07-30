@@ -13,6 +13,9 @@ git clone https://github.com/ReturnInfinity/BareMetal-AppPort
 git clone https://github.com/ReturnInfinity/BareMetal-Firecracker
 mkdir BareMetal-AppPort/build/
 cp files/* BareMetal-AppPort/build
+cd BareMetal-AppPort
+./setup.sh
+cd ..
 
 DISK="$PWD/disk.img"
 DISKSIZE=512M

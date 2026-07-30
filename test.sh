@@ -15,8 +15,6 @@ PROG_APP=${PROG_C%.c}.app
 #fi
 
 cd BareMetal-AppPort
-./clean.sh
-./setup.sh
 ./build-app.sh "$PROG_C"
 cp "$PROG_APP" ../BareMetal-Firecracker/sys
 cd ..
