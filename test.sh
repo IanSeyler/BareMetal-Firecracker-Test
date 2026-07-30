@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+BOLD="\033[1m"
+NORMAL="\033[0m"
+
 if [ -z "$1" ]; then
 	echo "Usage: $0 <program.c>"
 	exit 1
@@ -39,7 +42,7 @@ else
 fi
 if [[ "$REPLY" =~ ^[Yy]$ ]]; then
 	if [ -z "${BM_API_KEY:-}" ]; then
-		echo "BM_API_KEY is not set. Make sure you `export BM_API_KEY=YOURKEY` first"
+		echo -e "BM_API_KEY is not set. Make sure you ${BOLD}export BM_API_KEY=YOURKEY${NORMAL} first"
 		exit 1
 	fi
 
