@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+BOLD="\033[1m"
+NORMAL="\033[0m"
+
 # Pre-flight checks: make sure required utilities are installed
 for cmd in git mkfs.ext2 curl unzip tar gcc nasm make patch jq; do
 	if ! command -v "$cmd" > /dev/null 2>&1; then
@@ -9,6 +12,7 @@ for cmd in git mkfs.ext2 curl unzip tar gcc nasm make patch jq; do
 	fi
 done
 
+echo -e "This is ${BOLD}Pulling repositories${NORMAL}"
 git clone https://github.com/ReturnInfinity/BareMetal-AppPort
 git clone https://github.com/ReturnInfinity/BareMetal-Firecracker
 mkdir BareMetal-AppPort/build/
