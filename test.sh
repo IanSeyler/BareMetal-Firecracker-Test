@@ -25,9 +25,14 @@ cd BareMetal-Firecracker
 ./build.sh "$PROG_APP"
 cp sys/baremetal.elf ../
 cd ..
-./baremetal.sh start
-sleep 15
-./baremetal.sh output --full
+
+if ip link show tap0 > /dev/null 2>&1; then
+	./baremetal.sh start
+	sleep 15
+	./baremetal.sh output --full
+else
+	echo "Skipping BareMetal VM run: tap device 'tap0' not found. Create it before running the VM. Check scripts dir."
+fi
 
 if [ -f "./bm-api.sh" ]; then
 	read -p "Upload baremetal.elf to the BareMetal Cloud for execution? [y/N] " REPLY
