@@ -36,6 +36,6 @@ DISKSIZE=512M
 
 # Create the disk image if it doesn't already exist
 if [ ! -f "$DISK" ]; then
-	echo "Creating $DISKSIZE ext2 disk image"
+#	echo "Creating $DISKSIZE ext2 disk image"
 	mkfs.ext2 -q -F "$DISK" "$DISKSIZE"
 fi
