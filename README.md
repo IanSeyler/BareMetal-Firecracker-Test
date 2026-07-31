@@ -1,29 +1,29 @@
 # BareMetal-App
 
+A quick way to get going with testing [BareMetal-Firecracker](https://github.com/ReturnInfinity/BareMetal-Firecracker), [BareMetal-AppPort](https://github.com/ReturnInfinity/BareMetal-AppPort), and uploading your program to [BareMetal Cloud](https://baremetal.returninfinity.com).
+
+BareMetal is an exokernel written in x86-64 Assembly that expects a payload program. Your C program is compiled into an `.app` and is combined with the BareMetal kernel to produce a single bootable `.elf` unikernel. It can then be run directly in Firecracker microVM with as little as 4MiB of RAM. This repo wires together the pieces needed to go from a C file on your laptop to a running instance, either locally in a VM for fast iteration or on BareMetal Cloud for real deployment.
+
 ## Quickstart
 
-Log into https://baremetal.returninfinity.com, open API KEYS, and create a new API key.
+Log into [BareMetal Cloud](https://baremetal.returninfinity.com), open API KEYS, and create a new API key.
 
 On your linux system enter the command `export BM_API_KEY=YOURKEY`. Replace YOURKEY with the new key.
 
 Enter the following commands:
 
+```
 git clone https://github.com/ReturnInfinity/BareMetal-App
 cd BareMetal-App
 ./setup.sh
 cp BareMetal-AppPort/hello.c .
 ./test.sh hello.c
+```
 
 When prompted to upload to cloud hit `Y`. Your program should be running in BareMetal Cloud now.
 
 Confirm it:
-./bm-api.sh instances list
-
-## Summary
-
-A quick way to get going with testing [BareMetal-Firecracker](https://github.com/ReturnInfinity/BareMetal-Firecracker), [BareMetal-AppPort](https://github.com/ReturnInfinity/BareMetal-AppPort), and uploading your program to [BareMetal Cloud](https://baremetal.returninfinity.com).
-
-BareMetal is an exokernel written in x86-64 Assembly that expects a payload program. Your C program is compiled into an `.app` and is combined with the BareMetal kernel to produce a single bootable `.elf` unikernel. It can then be run directly in Firecracker microVM with as little as 4MiB of RAM. This repo wires together the pieces needed to go from a C file on your laptop to a running instance, either locally in a VM for fast iteration or on BareMetal Cloud for real deployment.
+`./bm-api.sh instances list`
 
 ## Requirements
 
