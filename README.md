@@ -2,11 +2,15 @@
 
 A quick way to get going with testing BareMetal-Firecracker, BareMetal-AppPort, and uploading your program to the [BareMetal VPS](https://baremetal.returninfinity.com).
 
+## Clone
+
+Run `git clone https://github.com/ReturnInfinity/BareMetal-App`
+
 ## Setup
 
 Run `./setup.sh`
 
-This will complete a "pre-flight" check to verify the per-requisites are installed, pull the required repos, pull the libraries (if needed), and build them.
+This will complete a "pre-flight" check to verify the per-requisites are installed, pull the required repositories, pull the libraries (if needed), and build them.
 
 ## Test
 
