@@ -5,6 +5,7 @@ A quick way to get going with testing BareMetal-Firecracker, BareMetal-AppPort, 
 ## Clone
 
 Run `git clone https://github.com/ReturnInfinity/BareMetal-App`
+
 Run `cd BareMetal-App`
 
 ## Setup
