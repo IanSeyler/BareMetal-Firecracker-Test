@@ -40,4 +40,4 @@ if [ ! -f "$DISK" ]; then
 	mkfs.ext2 -q -F "$DISK" "$DISKSIZE"
 fi
 
-echo -e "$\nComplete! Run ${BOLD}./test.sh YOURPROGRAM.c${NORMAL} to build and run your program."
+echo -e "\nComplete! Run ${BOLD}./test.sh YOURPROGRAM.c${NORMAL} to build and run your program."
