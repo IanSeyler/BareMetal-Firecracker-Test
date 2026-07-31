@@ -12,10 +12,12 @@ fi
 PROG_C=$1
 PROG_APP=${PROG_C%.c}.app
 
-#if [ ! -f "$PROG_C" ]; then
-#	echo "Error: $PROG_C not found"
-#	exit 1
-#fi
+if [ ! -f "$PROG_C" ]; then
+	echo "Error: $PROG_C not found"
+	exit 1
+fi
+
+cp $PROG_C BareMetal-AppPort
 
 cd BareMetal-AppPort
 ./build-app.sh "$PROG_C"

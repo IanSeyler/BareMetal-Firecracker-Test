@@ -198,6 +198,7 @@ cmd_instances() {
       local vcpu="${3:?usage: instances create <name> <vcpu> <ram-mib> <image-id>}"
       local ram_mib="${4:?usage: instances create <name> <vcpu> <ram-mib> <image-id>}"
       local image_id="${5:?usage: instances create <name> <vcpu> <ram-mib> <image-id>}"
+      [ "$ram_mib" -ge 4 ] 2>/dev/null || fail "ram-mib must be at least 4 (got '${ram_mib}')"
       local payload
       payload="$(jq -n --arg name "$name" --argjson vcpu "$vcpu" --argjson ramMib "$ram_mib" --arg vmImageId "$image_id" \
         '{name: $name, vcpu: $vcpu, ramMib: $ramMib, vmImageId: $vmImageId}')"
