@@ -5,22 +5,33 @@ BOLD="\033[1m"
 NORMAL="\033[0m"
 
 if [ -z "$1" ]; then
-	echo "Usage: $0 <program.c>"
+	echo "Usage: $0 <program.c> [otherfile.c ...]"
 	exit 1
 fi
 
-PROG_C=$1
-PROG_APP=${PROG_C%.c}.app
+PROG_SRCS=("$@")
+PROG_APP="$(basename "${PROG_SRCS[0]}" .c).app"
 
-if [ ! -f "$PROG_C" ]; then
-	echo "Error: $PROG_C not found"
-	exit 1
-fi
-
-cp $PROG_C BareMetal-AppPort
+# Mirror each source's path (and any header files sitting alongside it)
+# into BareMetal-AppPort, so quote-form #includes between them resolve
+# the same way there as they do here.
+for SRC in "${PROG_SRCS[@]}"; do
+	if [ ! -f "$SRC" ]; then
+		echo "Error: $SRC not found"
+		exit 1
+	fi
+	SRC_DIR=$(dirname "$SRC")
+	mkdir -p "BareMetal-AppPort/$SRC_DIR"
+	cp "$SRC" "BareMetal-AppPort/$SRC_DIR/"
+	for HDR in "$SRC_DIR"/*.h; do
+		if [ -f "$HDR" ]; then
+			cp "$HDR" "BareMetal-AppPort/$SRC_DIR/"
+		fi
+	done
+done
 
 cd BareMetal-AppPort
-./build-app.sh "$PROG_C"
+./build-app.sh "${PROG_SRCS[@]}"
 cp "$PROG_APP" ../BareMetal-Firecracker/sys
 cd ..
 
@@ -48,7 +59,7 @@ if [[ "$REPLY" =~ ^[Yy]$ ]]; then
 		exit 1
 	fi
 
-	NAME=$(basename "$PROG_C" .c)
+	NAME=$(basename "$PROG_APP" .app)
 	NAME=$(printf '%s' "$NAME" | tr -c 'A-Za-z0-9-' '-')
 	IMAGE_ID=$(./bm-api.sh images upload "$PROG_APP" "BareMetal-Firecracker/sys/baremetal.elf" | awk -F': ' '/^id:/{print $2}')
 	INSTANCE_ID=$(./bm-api.sh instances create "$NAME" 1 16 "$IMAGE_ID" | awk -F': ' '/^id:/{print $2}')
