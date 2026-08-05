@@ -19,6 +19,7 @@ cd BareMetal-App
 cp BareMetal-AppPort/hello.c .
 ./1-build.sh hello.c
 ./2-run.sh
+./3-upload.sh
 ```
 
 When prompted to upload to cloud hit `Y`. Your program should be running in BareMetal Cloud now.
