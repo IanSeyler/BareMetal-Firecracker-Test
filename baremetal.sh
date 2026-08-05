@@ -46,10 +46,19 @@ case "$cmd" in
 		rm -f "$VMLOG"
 		rm -f "$VMLOGPOS"
 
-		# Create the disk image if it doesn't already exist
+		# Create the disk image if it doesn't already exist -- a plain
+		# zeroed (sparse) file, not an ext2 filesystem: BMFS (see
+		# BareMetal-AppPort/port/bmfs.c) treats this as raw sectors it
+		# lays its own superblock/directory table/file data across
+		# directly, with no filesystem of its own underneath.
+		# Formatting it with mkfs.ext2 would leave non-zero ext2
+		# metadata sitting in the exact sectors BMFS uses for its own
+		# superblock/directory table, which BMFS then misreads as
+		# pre-existing (garbage) directory entries -- corrupting block
+		# allocation for the first file any app creates.
 		if [ ! -f "$DISK" ]; then
-			echo "Creating $DISKSIZE ext2 disk image at $DISK"
-			mkfs.ext2 -q -F "$DISK" "$DISKSIZE"
+			echo "Creating $DISKSIZE disk image at $DISK"
+			truncate -s "$DISKSIZE" "$DISK"
 		fi
 
 		# Kill any leftover session from a previous run
