@@ -24,6 +24,8 @@ cp BareMetal-AppPort/hello.c .
 
 When prompted to upload to cloud hit `Y`. Your program should be running in BareMetal Cloud now.
 
+`./1-build.sh` writes the name of the `.app` it built to `.prog_app` in the repo root, which `./3-upload.sh` reads back so it knows which file to upload — this is what lets the two scripts be run separately, one after the other.
+
 Confirm it:
 `./bm-api.sh instances list`
 
@@ -146,4 +148,4 @@ Pass `-v`/`--verbose` before a command to see the full JSON response instead of 
 ./clean.sh
 ```
 
-Removes the cloned `BareMetal-AppPort` and `BareMetal-Firecracker` repos, `baremetal.elf`, and `disk.img`. `setup.sh` runs this automatically before rebuilding.
+Removes the cloned `BareMetal-AppPort` and `BareMetal-Firecracker` repos, `baremetal.elf`, `disk.img`, and `.prog_app`. `setup.sh` runs this automatically before rebuilding.

@@ -4,6 +4,13 @@ set -e
 BOLD="\033[1m"
 NORMAL="\033[0m"
 
+if [ -f "./.prog_app" ]; then
+	PROG_APP="$(cat ./.prog_app)"
+else
+	echo "Error: .prog_app not found. Run ./1-build.sh first."
+	exit 1
+fi
+
 if [ -f "./bm-api.sh" ]; then
 	read -p "Upload baremetal.elf to the BareMetal Cloud for execution? [y/N] " REPLY
 else

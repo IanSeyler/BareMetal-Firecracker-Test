@@ -2,3 +2,4 @@ BareMetal-AppPort
 BareMetal-Firecracker
 baremetal.elf
 disk.img
+.prog_app

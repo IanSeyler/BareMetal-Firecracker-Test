@@ -11,6 +11,7 @@ fi
 
 PROG_SRCS=("$@")
 PROG_APP="$(basename "${PROG_SRCS[0]}" .c).app"
+echo "$PROG_APP" > .prog_app
 
 # Mirror each source's path (and any header files sitting alongside it)
 # into BareMetal-AppPort, so quote-form #includes between them resolve
