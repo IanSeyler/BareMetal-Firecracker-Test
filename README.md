@@ -17,7 +17,8 @@ git clone https://github.com/ReturnInfinity/BareMetal-App
 cd BareMetal-App
 ./setup.sh
 cp BareMetal-AppPort/hello.c .
-./test.sh hello.c
+./1-build.sh hello.c
+./2-run.sh
 ```
 
 When prompted to upload to cloud hit `Y`. Your program should be running in BareMetal Cloud now.
@@ -66,6 +67,12 @@ echo -e '#include <stdio.h>\n\nint main(void) {\n    printf("Hello, World!\\n");
 
 ```
 ./test.sh hello.c
+```
+
+You can also use multiple C files:
+
+```
+./1-build.sh testjson.c cjson/cjson.c
 ```
 
 This will:
