@@ -4,7 +4,7 @@ set -e
 BOLD="\033[1m"
 NORMAL="\033[0m"
 
-echo -e "${BOLD}BareMetal-Firecracker-Test${NORMAL}\n"
+echo -e "${BOLD}BareMetal-App Setup${NORMAL}\n"
 
 echo -e "Running clean"
 ./clean.sh
