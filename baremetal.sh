@@ -46,12 +46,6 @@ case "$cmd" in
 		rm -f "$VMLOG"
 		rm -f "$VMLOGPOS"
 
-		# Verify the tap device exists
-		if ! ip link show tap0 > /dev/null 2>&1; then
-			echo "Error: tap device 'tap0' not found. Create it before starting the VM. Check scripts dir." >&2
-			exit 1
-		fi
-
 		# Create the disk image if it doesn't already exist
 		if [ ! -f "$DISK" ]; then
 			echo "Creating $DISKSIZE ext2 disk image at $DISK"
@@ -82,9 +76,11 @@ case "$cmd" in
 			-d '{ "vcpu_count": 1, "mem_size_mib": 4 }' > /dev/null
 
 		# Set Firecracker network
+		if ip link show tap0 > /dev/null 2>&1; then
 		curl -sf --unix-socket "$SOCKET" -X PUT 'http://localhost/network-interfaces/eth0' \
 			-H 'Content-Type: application/json' \
 			-d '{ "iface_id": "eth0", "host_dev_name": "tap0", "guest_mac": "02:FC:AB:CD:EF:01" }' > /dev/null
+		fi
 
 		# Set Firecracker storage
 		curl -sf --unix-socket "$SOCKET" -X PUT 'http://localhost/drives/rootfs' \

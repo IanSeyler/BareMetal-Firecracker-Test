@@ -40,13 +40,12 @@ cd BareMetal-Firecracker
 cp sys/baremetal.elf ../
 cd ..
 
-if ip link show tap0 > /dev/null 2>&1; then
-	./baremetal.sh start
-	sleep 15
-	./baremetal.sh output --full
-else
-	echo "Skipping local BareMetal VM test run as tap device 'tap0' not found. Run 'BareMetal-Firecracker/scripts/mkbr0.sh' to create it if local tests are needed."
+if ! ip link show tap0 > /dev/null 2>&1; then
+	echo -e "${BOLD}Warning${NORMAL}: tap device 'tap0' not found. VM will be started without network access. Run 'BareMetal-Firecracker/scripts/mkbr0.sh' to enable it." >&2
 fi
+./baremetal.sh start
+sleep 15
+./baremetal.sh output --full
 
 if [ -f "./bm-api.sh" ]; then
 	read -p "Upload baremetal.elf to the BareMetal Cloud for execution? [y/N] " REPLY
