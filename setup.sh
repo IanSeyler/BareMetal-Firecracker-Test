@@ -6,11 +6,11 @@ NORMAL="\033[0m"
 
 echo -e "${BOLD}BareMetal-App Setup${NORMAL}\n"
 
-echo -e "Running clean"
+echo -e "- Running clean"
 ./clean.sh
 
 # Pre-flight checks: make sure required utilities are installed
-echo -e "Pre-flight check"
+echo -e "- Pre-flight check"
 for cmd in git curl unzip tar gcc nasm make patch jq; do
 	if ! command -v "$cmd" > /dev/null 2>&1; then
 		echo "Error: required command '$cmd' not found. Please install it before running this script." >&2
@@ -20,9 +20,9 @@ done
 
 echo -e "${BOLD}Pulling repositories${NORMAL}"
 
-echo -e "BareMetal-AppPort"
+echo -e "- BareMetal-AppPort"
 git clone --quiet https://github.com/ReturnInfinity/BareMetal-AppPort
-echo -e "BareMetal-Firecracker"
+echo -e "- BareMetal-Firecracker"
 git clone --quiet https://github.com/ReturnInfinity/BareMetal-Firecracker
 
 mkdir BareMetal-AppPort/build/
@@ -48,4 +48,7 @@ if [ ! -f "$DISK" ]; then
 	truncate -s "$DISKSIZE" "$DISK"
 fi
 
-echo -e "\nComplete! Run ${BOLD}./test.sh YOURPROGRAM.c${NORMAL} to build and run your program."
+echo -e "\n${BOLD}Complete!${NORMAL}\n"
+echo -e "- Run ${BOLD}./1-build.sh YOURPROGRAM.c${NORMAL} to build your program"
+echo -e "- Run ${BOLD}./2-run.sh${NORMAL} to run your program in a BareMetal microVM."
+echo -e "- Run ${BOLD}./3-upload.sh${NORMAL} to upload your program to BareMetal Cloud"
