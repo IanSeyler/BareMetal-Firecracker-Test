@@ -113,6 +113,8 @@ This sets up a `br0` bridge with `tap0` attached in promiscuous mode. On a wired
 
 ## Deploying to the BareMetal Cloud
 
+![BareMetal Cloud UI](images/Screenshot.png)
+
 Uploading from `test.sh` requires a `BM_API_KEY`. Generate one from the [dashboard](https://baremetal.returninfinity.com) (or `POST /api/api-keys` while signed in), then:
 
 ```
